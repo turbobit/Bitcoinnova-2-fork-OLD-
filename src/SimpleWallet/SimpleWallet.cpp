@@ -1288,11 +1288,11 @@ bool simple_wallet::show_blockchain_height(const std::vector<std::string>& args)
 bool simple_wallet::confirmTransaction(TransferCommand cmd, bool multiAddress) {
   std::string feeString;
 
-  /* 10 shells = 0.1 TRTL */
+  /* 10 shells = 0.1 BTN */
   if (cmd.fee == 10) {
-    feeString = "0.1 TRTL (minimum)";
+    feeString = "0.1 BTN (minimum)";
   } else {
-    feeString = m_currency.formatAmount(cmd.fee) + " TRTL";
+    feeString = m_currency.formatAmount(cmd.fee) + " BTN";
   }
 
   std::string walletName = boost::filesystem::change_extension(m_wallet_file, "").string();
@@ -1301,7 +1301,7 @@ bool simple_wallet::confirmTransaction(TransferCommand cmd, bool multiAddress) {
 
   if (!multiAddress) {
     std::cout << "You are sending " << m_currency.formatAmount(cmd.dsts[0].amount)
-              << " TRTL, with a fee of " << feeString << std::endl
+              << " BTN, with a fee of " << feeString << std::endl
               << "FROM: " << walletName << std::endl
               << "TO: " << std::endl << cmd.dsts[0].address << std::endl
               << std::endl;
@@ -1313,7 +1313,7 @@ bool simple_wallet::confirmTransaction(TransferCommand cmd, bool multiAddress) {
 
     for (auto destination : cmd.dsts) {
       std::cout << "You are sending " << m_currency.formatAmount(destination.amount)
-                << " TRTL" << std::endl << "FROM: " << walletName << std::endl
+                << " BTN" << std::endl << "FROM: " << walletName << std::endl
                 << "TO: " << std::endl << destination.address << std::endl
                 << std::endl;
     }
@@ -1512,7 +1512,7 @@ bool simple_wallet::print_outputs_from_transaction(const std::vector<std::string
 
       found = true;
 
-      logger(INFO, GREEN) << "The transaction output of " << trtl << " TRTL belongs to you!";
+      logger(INFO, GREEN) << "The transaction output of " << trtl << " BTN belongs to you!";
     }
   }
 
@@ -1524,7 +1524,7 @@ bool simple_wallet::print_outputs_from_transaction(const std::vector<std::string
   {
     std::string trtl = m_currency.formatAmount(sum);
 
-    logger(INFO, GREEN) << "Outputs totalling " << trtl << " TRTL were sent to your wallet!";
+    logger(INFO, GREEN) << "Outputs totalling " << trtl << " BTN were sent to your wallet!";
   }
 
   return true;
