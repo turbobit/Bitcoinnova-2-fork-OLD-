@@ -4,10 +4,13 @@
 # supports Ubuntu 16 LTS
 
 sudo apt-get update
-yes "" | sudo apt-get install build-essential python-dev gcc-4.9 g++-4.9 git cmake libboost1.58-all-dev librocksdb-dev
+yes "" | sudo apt-get install build-essential python-dev gcc-4.9 g++-4.9 git cmake libboost1.58-all-dev librocksdb-dev libboost-dev libboost-doc
 export CXXFLAGS="-std=gnu++11"
-git clone https://github.com/Bitcoinnova/Bitcoinnova
-cd Bitcoinnova
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+#export DBOOST_ROOT=/home/piter/boost_1_58_0
+git clone https://github.com/Bitcoin-N/Bitcoinnova-fork
+cd Bitcoinnova-fork
 mkdir build && cd $_
-cmake ..
+cmake  -D CMAKE_BUILD_TYPE=Release .. -DBOOST_ROOT=$HOME/boostlib
 make

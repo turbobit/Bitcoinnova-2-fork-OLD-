@@ -18,7 +18,6 @@ If the script doesn't work for you:
 
 #### Linux
 
-If you are using Arch Linux, there is an AUR precompiled package, `Bitcoinnova-bin`, or a build from source version, `Bitcoinnova-git`.
 
 ##### Prerequisites
 
@@ -33,8 +32,8 @@ sudo apt-get install librocksdb-dev
 
 ##### Building
 
-- `git clone https://github.com/Bitcoinnova/Bitcoinnova`
-- `cd Bitcoinnova`
+- `git clone https://github.com/Bitcoin-N/Bitcoinnova-fork`
+- `cd Bitcoinnova-fork`
 - `mkdir build && cd $_`
 - `cmake ..`
 - `make`
@@ -49,8 +48,8 @@ sudo apt-get install librocksdb-dev
 
 ##### Building
 
-- `git clone https://github.com/Bitcoinnova/Bitcoinnova`
-- `cd Bitcoinnova`
+- `git clone https://github.com/Bitcoin-N/Bitcoinnova-fork`
+- `cd Bitcoinnova-fork`
 - `mkdir build && cd $_`
 - `cmake ..` or `cmake -DBOOST_ROOT=<path_to_boost_install> ..` when building
   from a specific boost install

@@ -41,21 +41,21 @@ _set_wd() {
         _note "Building project from current working directory ($PWD)"
     else
         _note "Cloning project with git..."
-        if [ -d "$PWD"/Bitcoinnova ]; then
+        if [ -d "$PWD"/Bitcoinnova-fork ]; then
             read -r -p "${1:-Bitcoinnova directory already exists. Overwrite? [y/N]} " response
             case "$response" in
                 [yY][eE][sS|[yY])
                     _colorize red "Overwriting old Bitcoinnova directory" && echo
-                    rm -rf "$PWD"/Bitcoinnova
+                    rm -rf "$PWD"/Bitcoinnova-fork
                     ;;
                 *)
                     _fail "Bitcoinnova directory already exists. Aborting..."
                     ;;
             esac
         fi
-        mkdir Bitcoinnova
-        git clone -q https://github.com/Bitcoinnova/Bitcoinnova Bitcoinnova   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
-        cd Bitcoinnova
+        mkdir Bitcoinn
+        git clone -q https://github.com/Bitcoin-N/Bitcoinnova-fork   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
+        cd Bitcoinnova-fork
     fi
 }
 
@@ -145,7 +145,12 @@ _configure_os() {
 }
 
 _note "Bitcoinnova Multi_Installer v1.0 (pepperoni)"
-_colorize green " _______         _   _       _____      _       \n|__   __|       | | | |     / ____|    (_)      \n   | |_   _ _ __| |_| | ___| |     ___  _ _ __  \n   | | | | | '__| __| |/ _ \ |    / _ \| | '_ \ \n   | | |_| | |  | |_| |  __/ |___| (_) | | | | |\n   |_|\__,_|_|   \__|_|\___|\_____\___/|_|_| |_|\n" && echo
+_colorize green " _     _ _            _                               
+| |   (_) |          (_)                              
+| |__  _| |_ ___ ___  _ _ __    _ __   _____   ____ _ 
+| '_ \| | __/ __/ _ \| | '_ \  | '_ \ / _ \ \ / / _` |
+| |_) | | || (_| (_) | | | | | | | | | (_) \ V / (_| |
+|_.__/|_|\__\___\___/|_|_| |_| |_| |_|\___/ \_/ \__,_|\n" && echo
 
 _configure_os
 
