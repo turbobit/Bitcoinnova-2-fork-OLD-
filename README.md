@@ -1,5 +1,87 @@
-<img src="http://pool.bitcoinn.biz/bitcoin-nova.png">
+<p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/98f307e50e222b95c1695c11208bd91565f8b7c7/687474703a2f2f706f6f6c2e626974636f696e6e2e62697a2f626974636f696e2d6e6f76612e706e67"><img src="https://camo.githubusercontent.com/98f307e50e222b95c1695c11208bd91565f8b7c7/687474703a2f2f706f6f6c2e626974636f696e6e2e62697a2f626974636f696e2d6e6f76612e706e67" data-canonical-src="http://pool.bitcoinn.biz/bitcoin-nova.png" style="max-width:100%;"></a></p>
+--
+<h3>How To Upgrade from an older version</h3>
+<h4>(windows, mac, linux)</h4>
+<ul>
+<li>run the old <code>Bitcoinn</code> to sync your chain fully</li>
+<li>with the old <code>simplewallet</code> fully synced, open <code>simplewallet</code></li>
+<li>open your wallet</li>
+<li>export your SPEND and VIEW keys, this is important. <code>export_keys</code> If you are in windows, right click the titlebar of the CMD window and select EDIT then MARK so be able to copy and paste your keys.</li>
+<li>Unzip the new files into a NEW FOLDER outside of the old version folder</li>
+<li>Close the old version folder <code>Bitcoinnova-forkd</code> and <code>simplewallet</code> by typing <code>exit</code> into each window</li>
+<li>Run the new <code>Bitcoinnovd</code></li>
+<li>Run the new <code>simplewallet</code></li>
+<li>Press <strong>I</strong> for IMPORT in simplewallet</li>
+<li>Use any filename for the wallet name, it does not have to be the same</li>
+<li>Use any password for wallet password, it does not have to be the same as the last</li>
+<li>Enter your <code>spend_key</code> and your <code>view_key</code> from step 4</li>
+</ul>
+<h3>RPC API Changes</h3>
+<p><strong>Developers seeking to integrate the simplewallet or walletd daemons into their applications should note this crucial change.</strong></p>
+<p>Mandatory authentication has been added to the JSON RPC API interfaces of simplewallet and walletd. To maintain back compatibility with old services, the <code>--rpc-legacy-security</code> flag has been introduced to allow password-less access to the RPC.</p>
+<p>However, all new applications going forward should make use of the <code>--rpc-password</code> flag to enable authentication of JSON RPC queries.</p>
+<p>To pass the password to the RPC interface, add an additional field <code>password</code> to the JSON object:</p>
+<pre><code>{
+"jsonrpc": "2.0",
+"method": "transfer",
+"params": {},
+"password": "&lt;the password&gt;"
+}
+</code></pre>
+<h3>How To Compile</h3>
+<h4>Ubuntu 16.xx LTS</h4>
+<ul>
+<li><code>sudo apt-get update</code></li>
+<li><code>sudo apt-get -y install build-essential python-dev gcc-4.9 g++-4.9 git cmake libboost1.58-all-dev librocksdb-dev</code></li>
+<li><code>export CXXFLAGS="-std=gnu++11"</code></li>
+<li><code>git clone https://github.com/Bitcoin-N/Bitcoinnova-fork.git</code></li>
+<li><code>cd Bitcoinnova-fork</code></li>
+<li><code>mkdir build &amp;&amp; cd $_</code></li>
+<li><code>cmake ..</code></li>
+<li><code>make</code></li>
+</ul>
+<h4>Windows 10</h4>
+<h5>Prerequisites</h5>
+<ul>
+<li>Install <a href="https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&amp;rel=15&amp;page=inlineinstall" rel="nofollow">Visual Studios 2017 Community Edition</a></li>
+<li>When installing Visual Studios, it is absolutely important you install C++ capabilities, and the vc++ v140 toolchain when selecting features. You will need this for cmake, MSBuild and other commands.</li>
+<li>Install <a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.59.0/" rel="nofollow">Boost 1.59.0</a>, ensure to download the installer for  MSVC 14.</li>
+</ul>
+<h5>Building</h5>
+<ul>
+<li>Use the start menu or similar to open 'x64 Native Tools Command Prompt for vs2017' command prompt.</li>
+<li><code>cd &lt;your_Bitcoinnova-fork_directory&gt;</code></li>
+<li><code>mkdir build</code></li>
+<li><code>cd build</code></li>
+<li><code>cmake -G "Visual Studio 14 Win64" .. -DBOOST_ROOT=D:/Boost/boost_1_59_0</code> (Or your boost installed dir.)</li>
+<li><code>MSBuild ByteCoin.sln /p:Configuration=Release</code></li>
+<li>At this point, this will create a .sln file in the 'build' directory. Open this .sln in Visual Studios 2017 and click 'Build Solution' under the 'Build' Menu Item.</li>
+<li>If all went well, it will complete successfully, and you will find all your binaries in the '..\build\src\Debug' directory, or the '..\build\src\Release' directory if you built with release enabled.</li>
+</ul>
+<h4>Apple</h4>
+<h5>Prerequisites</h5>
+<ul>
+<li>Install <a href="https://cmake.org/" rel="nofollow">cmake</a>. See <a href="https://stackoverflow.com/questions/23849962/cmake-installer-for-mac-fails-to-create-usr-bin-symlinks" rel="nofollow">here</a> if you are unable call <code>cmake</code> from the terminal after installing.</li>
+<li>Install the <a href="http://www.boost.org/" rel="nofollow">boost</a> libraries. Either compile boost manually or run <code>brew install boost</code>.</li>
+<li>Install XCode and Developer Tools.</li>
+</ul>
+<h5>Building</h5>
+<ul>
+<li><code>git clone https://github.com/Bitcoin-N/Bitcoinnova-fork.git</code></li>
+<li><code>cd Bitcoinnova-fork</code></li>
+<li><code>mkdir build &amp;&amp; cd $_</code></li>
+<li><code>cmake ..</code> or <code>cmake -DBOOST_ROOT=&lt;path_to_boost_install&gt; ..</code> when building<br>
+from a specific boost install</li>
+<li><code>make</code></li>
+</ul>
+<p>The binaries will be in <code>./src</code> after compilation is complete.</p>
+<h4>Thanks</h4>
+<p>Cryptonote Developers, Bytecoin Developers, Forknote Project, TurtleCoin Community, Bitcoinnova Community</p>
 
+
+
+---
+old method ---
 
 ### How To Compile
 
